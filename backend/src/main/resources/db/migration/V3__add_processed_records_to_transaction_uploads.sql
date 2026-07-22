@@ -1,0 +1,1 @@
+ALTER TABLE transaction_uploads ADD COLUMN processed_records INT NOT NULL DEFAULT 0;
