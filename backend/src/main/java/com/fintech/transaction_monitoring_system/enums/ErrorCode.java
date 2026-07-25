@@ -14,7 +14,14 @@ public enum ErrorCode {
     GEN_E001("GEN_E001", "Resource not found", HttpStatus.NOT_FOUND),
     GEN_E002("GEN_E002", "Validation failed", HttpStatus.BAD_REQUEST),
     GEN_E003("GEN_E003", "Access denied", HttpStatus.FORBIDDEN),
-    GEN_E004("GEN_E004", "An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+    GEN_E004("GEN_E004", "An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR),
+
+    // Upload errors
+    UPLOAD_E001("UPLOAD_E001", "Empty file", HttpStatus.BAD_REQUEST),
+    UPLOAD_E002("UPLOAD_E002", "Wrong file type", HttpStatus.BAD_REQUEST),
+    UPLOAD_E003("UPLOAD_E003", "File could not be parsed", HttpStatus.BAD_REQUEST),
+    UPLOAD_E004("UPLOAD_E004", "File exceeds maximum upload size", HttpStatus.CONTENT_TOO_LARGE);
+
 
     private final String code;
     private final String message;

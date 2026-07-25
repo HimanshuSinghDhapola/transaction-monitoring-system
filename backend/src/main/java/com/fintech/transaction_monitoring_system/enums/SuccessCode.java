@@ -8,7 +8,10 @@ public enum SuccessCode {
     AUTH_S003("AUTH_S003", "Password changed successfully"),
 
     // Transaction
-    TXN_S001("TXN_S001", "Transactions retrieved successfully");
+    TXN_S001("TXN_S001", "Transactions retrieved successfully"),
+
+    // Upload
+    UPLOAD_S001("UPLOAD_S001", "Upload processed successfully");
 
     private final String code;
     private final String message;
