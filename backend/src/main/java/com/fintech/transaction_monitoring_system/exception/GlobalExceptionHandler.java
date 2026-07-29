@@ -12,6 +12,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,6 +57,21 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex, HttpServletRequest req) {
         log.error("Unexpected error at {}", req.getRequestURI(), ex);
         return build(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.GEN_E004.getCode(), ErrorCode.GEN_E004.getMessage(), req.getRequestURI(), null);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException ex, HttpServletRequest req) {
+        return build(ErrorCode.GEN_E002.getStatus(), ErrorCode.GEN_E002.getCode(), ErrorCode.GEN_E002.getMessage(), req.getRequestURI(), null);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResponse> handleMaxUploadSize(MaxUploadSizeExceededException ex, HttpServletRequest req){
+        return build(ErrorCode.UPLOAD_E004.getStatus(), ErrorCode.UPLOAD_E004.getCode(), ErrorCode.UPLOAD_E004.getMessage(), req.getRequestURI(), null);
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<ErrorResponse> handleMultipart(MultipartException ex, HttpServletRequest req){
+        return build(ErrorCode.GEN_E002.getStatus(), ErrorCode.GEN_E002.getCode(), ErrorCode.GEN_E002.getMessage(), req.getRequestURI(), null);
     }
 
     private ResponseEntity<ErrorResponse> build(HttpStatus status, String code, String message, String path, List<String> details) {
